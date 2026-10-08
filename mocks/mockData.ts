@@ -1,0 +1,191 @@
+import { TransactionType } from '@/lib/types'
+import type { Account, AccountResponse, Transaction } from '@/lib/types'
+import { demoUser } from './mockUsers'
+
+export const mockAccount: Account = {
+  id: 'acc_000001',
+  name: 'Maria Marnerou',
+  currency: 'EUR',
+  balance: 428150, // $4,281.50
+}
+
+// Amounts are in minor units (cents for USD, whole yen for JPY).
+export const mockTransactions: Transaction[] = [
+  {
+    id: 'txn_001',
+    merchant: 'Whole Foods Market',
+    description: 'Weekly grocery shop, Brooklyn store',
+    date: '2026-10-07T18:42:00Z',
+    type: TransactionType.Debit,
+    status: 'completed',
+    amount: 8745,
+    currency: 'USD',
+    accountAmount: 8745,
+  },
+  {
+    id: 'txn_002',
+    merchant: 'Acme Corp Payroll',
+    description:
+      'Salary: October semi-monthly payroll deposit from Acme Corp Inc. Includes base pay, approved overtime and the quarterly wellness stipend. Payroll reference #88213-A, pay period 1-15 October 2026.',
+    date: '2026-10-06T09:00:00Z',
+    type: TransactionType.Credit,
+    status: 'completed',
+    amount: 310000,
+    currency: 'USD',
+    accountAmount: 310000,
+  },
+  {
+    id: 'txn_003',
+    merchant: 'Shell',
+    description: 'Fuel, pump 5',
+    date: '2026-10-06T13:15:00Z',
+    type: TransactionType.Debit,
+    status: 'completed',
+    amount: 5210,
+    currency: 'USD',
+    accountAmount: 5210,
+  },
+  {
+    id: 'txn_004',
+    merchant: 'Amazon Marketplace',
+    description:
+      'Order #112-4438291-7720933: USB-C cable, desk lamp bulb and two notebooks. Estimated delivery Friday.',
+    date: '2026-10-07T21:05:00Z',
+    type: TransactionType.Debit,
+    status: 'pending',
+    amount: 4699,
+    currency: 'USD',
+    accountAmount: 4699,
+  },
+  {
+    id: 'txn_005',
+    merchant: 'Zara',
+    description: 'Online order, card declined by issuer',
+    date: '2026-10-04T16:30:00Z',
+    type: TransactionType.Debit,
+    status: 'declined',
+    amount: 12900,
+    currency: 'USD',
+    accountAmount: 12900,
+  },
+  {
+    id: 'txn_006',
+    merchant: 'Hôtel Lumière',
+    description: 'Two nights, Paris 7e. City tax included.',
+    date: '2026-10-03T11:20:00Z',
+    type: TransactionType.Debit,
+    status: 'completed',
+    amount: 24000,
+    currency: 'EUR',
+    accountAmount: 26136,
+  },
+  {
+    id: 'txn_007',
+    merchant: 'The Tea House London',
+    description: 'Afternoon tea for two',
+    date: '2026-10-02T15:10:00Z',
+    type: TransactionType.Debit,
+    status: 'completed',
+    amount: 1450,
+    currency: 'GBP',
+    accountAmount: 1842,
+  },
+  {
+    id: 'txn_008',
+    merchant: 'Tokyo Ramen Yokocho',
+    description: 'Dinner',
+    date: '2026-10-02T12:00:00Z',
+    type: TransactionType.Debit,
+    status: 'completed',
+    amount: 2980,
+    currency: 'JPY',
+    accountAmount: 1987,
+  },
+  {
+    id: 'txn_009',
+    merchant: 'Uber Eats',
+    description: 'Refund for order #4471, missing item',
+    date: '2026-10-03T08:45:00Z',
+    type: TransactionType.Credit,
+    status: 'completed',
+    amount: 1850,
+    currency: 'USD',
+    accountAmount: 1850,
+  },
+  {
+    id: 'txn_010',
+    merchant: 'Transfer from Savings ••4410',
+    description: 'Internal transfer',
+    date: '2026-10-02T10:00:00Z',
+    type: TransactionType.Credit,
+    status: 'completed',
+    amount: 50000,
+    currency: 'USD',
+    accountAmount: 50000,
+  },
+  {
+    id: 'txn_011',
+    merchant: 'Starbucks',
+    description: 'Coffee and croissant',
+    date: '2026-10-08T07:58:00Z',
+    type: TransactionType.Debit,
+    status: 'pending',
+    amount: 675,
+    currency: 'USD',
+    accountAmount: 675,
+  },
+  {
+    id: 'txn_012',
+    merchant: 'City Fitness Club',
+    description: 'Monthly membership',
+    date: '2026-10-01T06:00:00Z',
+    type: TransactionType.Debit,
+    status: 'completed',
+    amount: 4500,
+    currency: 'USD',
+    accountAmount: 4500,
+  },
+  {
+    id: 'txn_013',
+    merchant: 'Spotify',
+    description: 'Premium Individual subscription',
+    date: '2026-10-05T00:00:00Z',
+    type: TransactionType.Debit,
+    status: 'completed',
+    amount: 1099,
+    currency: 'USD',
+    accountAmount: 1099,
+  },
+  {
+    id: 'txn_014',
+    merchant: 'Boulangerie Marais',
+    description: 'Bread and pastries',
+    date: '2026-09-30T08:30:00Z',
+    type: TransactionType.Debit,
+    status: 'completed',
+    amount: 850,
+    currency: 'EUR',
+    accountAmount: 926,
+  },
+  {
+    id: 'txn_015',
+    merchant: 'International Freight Forwarding & Customs Brokerage Services Ltd',
+    description:
+      'Customs duty refund for shipment HX-99120, reference 7781-B. Refund issued after the import classification was corrected by the customs authority.',
+    date: '2026-09-29T14:00:00Z',
+    type: TransactionType.Credit,
+    status: 'completed',
+    amount: 15000,
+    currency: 'USD',
+    accountAmount: 15000,
+  },
+]
+
+// Account data keyed by the user's email, so each signed-in user gets their own account and transactions.
+const accountsByEmail: Record<string, AccountResponse> = {
+  [demoUser.email]: { account: mockAccount, transactions: mockTransactions },
+}
+
+export const getAccountForEmail = (email: string): AccountResponse | undefined => {
+  return accountsByEmail[email]
+}
