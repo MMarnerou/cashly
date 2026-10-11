@@ -5,8 +5,9 @@ import { demoUser } from '@/mocks/mockUsers'
 
 const { verifySessionMock, redirectMock } = vi.hoisted(() => ({
   verifySessionMock: vi.fn(),
-  redirectMock: vi.fn(() => {
-    throw new Error('NEXT_REDIRECT')
+  // redirect() throws an error whose digest records the destination, as Next.js does.
+  redirectMock: vi.fn((destination: string) => {
+    throw Object.assign(new Error('NEXT_REDIRECT'), { digest: `NEXT_REDIRECT;replace;${destination};307;` })
   }),
 }))
 
@@ -50,7 +51,7 @@ describe('ProfileDetails', () => {
   it('redirects to sign-in when the session is not valid', async () => {
     verifySessionMock.mockResolvedValue(null)
 
-    await expect(ProfileDetails()).rejects.toThrow('NEXT_REDIRECT')
+    await expect(ProfileDetails()).rejects.toMatchObject({ digest: 'NEXT_REDIRECT;replace;/login;307;' })
     expect(redirectMock).toHaveBeenCalledWith('/login')
   })
 })

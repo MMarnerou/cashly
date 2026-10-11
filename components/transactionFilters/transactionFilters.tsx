@@ -1,5 +1,8 @@
 import { TransactionType } from '@/lib/types'
+import type { TransactionStatus } from '@/lib/types'
+import { statusesLabels } from '@/lib/statics'
 import type { TransactionFilters as Filters } from '@/lib/transactions'
+import './transactionFilters.css'
 
 interface TransactionFiltersProps {
   filters: Filters
@@ -31,9 +34,11 @@ export const TransactionFilters = ({ filters, isFiltered, onChange, onReset }: T
             className="select"
           >
             <option value="all">All statuses</option>
-            <option value="completed">Completed</option>
-            <option value="pending">Pending</option>
-            <option value="declined">Declined</option>
+            {(Object.keys(statusesLabels) as TransactionStatus[]).map((status) => (
+              <option key={status} value={status}>
+                {statusesLabels[status]}
+              </option>
+            ))}
           </select>
         </label>
 

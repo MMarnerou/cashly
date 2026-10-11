@@ -1,0 +1,34 @@
+.account-summary {
+  padding: var(--space-12);
+}
+
+.account-summary__name {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.account-summary__balance {
+  margin-top: var(--space-4);
+  font-size: var(--font-size-3xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.account-summary__meta {
+  margin-top: var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.account-summary__currency {
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+@media (min-width: 40rem) {
+  .account-summary__balance {
+    font-size: var(--font-size-4xl);
+  }
+}

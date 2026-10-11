@@ -16,19 +16,19 @@ export const getCurrencyDigits = (currency: string): number => {
 
 /**
  * Formats an integer amount in minor units, e.g. 428150 USD -> "$4,281.50".
- * Pass `signed` to prefix credits with "+" and debits with "-".
+ * Pass `showSign` to prefix positive amounts with "+" (negative amounts always show "-").
  */
 export const formatMoney = (
   value: number,
   currency: string,
-  { signed = false }: { signed?: boolean } = {},
+  { showSign = false }: { showSign?: boolean } = {},
 ): string => {
   const amount = value / 10 ** getCurrencyDigits(currency)
 
   return new Intl.NumberFormat(LOCALE, {
     style: 'currency',
     currency,
-    signDisplay: signed ? 'exceptZero' : 'auto',
+    signDisplay: showSign ? 'exceptZero' : 'auto',
   }).format(amount)
 }
 

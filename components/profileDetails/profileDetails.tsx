@@ -2,17 +2,10 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { mockAccount } from '@/mocks/mockData'
 import { demoUser } from '@/mocks/mockUsers'
+import { getInitials } from '@/lib/helpers'
 import { SESSION_COOKIE, verifySession } from '@/lib/session'
 import { CopyButton } from '../copyButton'
-
-const getInitials = (name: string): string => {
-  return name
-    .split(' ')
-    .map((part) => part[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase()
-}
+import './profileDetails.css'
 
 // Reads the session cookie, so it must render inside a <Suspense> boundary.
 export const ProfileDetails = async () => {

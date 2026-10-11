@@ -3,10 +3,17 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { TransactionDashboard } from './transactionDashboard'
 import { TransactionType, type Transaction } from '@/lib/types'
 
-const { useAccountMock } = vi.hoisted(() => ({ useAccountMock: vi.fn() }))
+const { useAccountMock, replaceMock } = vi.hoisted(() => ({
+  useAccountMock: vi.fn(),
+  replaceMock: vi.fn(),
+}))
 
 vi.mock('@/hooks/useAccount', () => ({
   useAccount: useAccountMock,
+}))
+
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ replace: replaceMock }),
 }))
 
 const account = { id: 'acc_000001', name: 'Maria Marnerou', currency: 'USD', balance: 428150 }
@@ -39,36 +46,31 @@ const transactions: Transaction[] = [
 describe('TransactionDashboard', () => {
   beforeEach(() => {
     useAccountMock.mockReset()
+    replaceMock.mockReset()
   })
 
   it('shows the loading skeleton while the account loads', () => {
-    useAccountMock.mockReturnValue({ state: { status: 'loading' }, retry: vi.fn() })
+    useAccountMock.mockReturnValue({ state: { status: 'loading' } })
 
     render(<TransactionDashboard />)
 
     expect(screen.getByRole('status')).toHaveTextContent('Loading your transactions')
   })
 
-  it('shows an error with the message and a Try again button', () => {
-    const retry = vi.fn()
+  it('sends the visitor to the error page when the account fails to load', () => {
     useAccountMock.mockReturnValue({
       state: { status: 'error', message: 'We could not load your account.' },
-      retry,
     })
 
-    render(<TransactionDashboard />)
+    const { container } = render(<TransactionDashboard />)
 
-    expect(screen.getByRole('alert')).toHaveTextContent("We couldn't load your transactions")
-    expect(screen.getByText('We could not load your account.')).toBeInTheDocument()
-
-    fireEvent.click(screen.getByRole('button', { name: 'Try again' }))
-    expect(retry).toHaveBeenCalledTimes(1)
+    expect(replaceMock).toHaveBeenCalledWith('/error')
+    expect(container).toBeEmptyDOMElement()
   })
 
   it('shows the account summary, filters and transactions when loaded', () => {
     useAccountMock.mockReturnValue({
       state: { status: 'success', account, transactions },
-      retry: vi.fn(),
     })
 
     render(<TransactionDashboard />)
@@ -76,12 +78,12 @@ describe('TransactionDashboard', () => {
     expect(screen.getByRole('heading', { name: 'Maria Marnerou' })).toBeInTheDocument()
     expect(screen.getByRole('search', { name: 'Filter transactions' })).toBeInTheDocument()
     expect(screen.getByText('Showing 2 of 2')).toBeInTheDocument()
+    expect(replaceMock).not.toHaveBeenCalled()
   })
 
   it('filters the list when a merchant is searched', () => {
     useAccountMock.mockReturnValue({
       state: { status: 'success', account, transactions },
-      retry: vi.fn(),
     })
 
     render(<TransactionDashboard />)
@@ -94,7 +96,6 @@ describe('TransactionDashboard', () => {
   it('opens the details sidebar when a transaction is clicked', () => {
     useAccountMock.mockReturnValue({
       state: { status: 'success', account, transactions },
-      retry: vi.fn(),
     })
 
     render(<TransactionDashboard />)
@@ -107,7 +108,6 @@ describe('TransactionDashboard', () => {
   it('hides the filters when the account has no transactions', () => {
     useAccountMock.mockReturnValue({
       state: { status: 'success', account, transactions: [] },
-      retry: vi.fn(),
     })
 
     render(<TransactionDashboard />)

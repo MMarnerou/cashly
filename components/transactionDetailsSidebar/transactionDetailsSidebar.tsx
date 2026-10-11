@@ -4,8 +4,10 @@ import { useEffect, useRef } from 'react'
 import { TransactionType } from '@/lib/types'
 import type { Transaction, TransactionStatus } from '@/lib/types'
 import { formatDateTime, formatMoney } from '@/lib/format'
+import CloseIcon from '@/assets/icons/close.svg'
 import { CopyButton } from '../copyButton'
 import { StatusBadge } from '../statusBadge'
+import './transactionDetailsSidebar.css'
 
 interface TransactionDetailsSidebarProps {
   transaction: Transaction | null
@@ -86,14 +88,14 @@ const TransactionDetails = ({
           <p className="details-sidebar__date">{formatDateTime(date)}</p>
         </div>
         <button type="button" onClick={onClose} aria-label="Close transaction details" className="icon-button">
-          <span aria-hidden="true">×</span>
+          <CloseIcon className="icon-button__icon" aria-hidden="true" />
         </button>
       </div>
 
       <div className="details-sidebar__body">
         <div className="details-sidebar__summary">
           <p className="details-sidebar__amount">
-            {formatMoney(signedMinor, currency, { signed: true })}
+            {formatMoney(signedMinor, currency, { showSign: true })}
           </p>
           <StatusBadge status={status} />
         </div>
@@ -111,7 +113,7 @@ const TransactionDetails = ({
             <>
               <dt>In {accountCurrency}</dt>
               <dd className="tabular">
-                {formatMoney(signedAccountMinor, accountCurrency, { signed: true })}
+                {formatMoney(signedAccountMinor, accountCurrency, { showSign: true })}
               </dd>
             </>
           )}

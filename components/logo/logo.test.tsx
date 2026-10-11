@@ -1,24 +1,23 @@
 import { render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { LogoMark } from './logo'
+import { Logo } from './logo'
 
-describe('LogoMark', () => {
+describe('Logo', () => {
   it('renders a decorative SVG hidden from screen readers', () => {
-    const { container } = render(<LogoMark />)
+    const { container } = render(<Logo />)
     const svg = container.querySelector('svg')
 
     expect(svg).toHaveAttribute('aria-hidden', 'true')
-    expect(svg).toHaveAttribute('viewBox', '0 0 32 32')
   })
 
   it('uses the logo class by default', () => {
-    const { container } = render(<LogoMark />)
+    const { container } = render(<Logo />)
 
-    expect(container.querySelector('svg')).toHaveClass('logo-mark')
+    expect(container.querySelector('svg')).toHaveClass('logo')
   })
 
   it('accepts a custom class name', () => {
-    const { container } = render(<LogoMark className="logo-mark logo-mark--lg" />)
+    const { container } = render(<Logo className="logo-mark logo-mark--lg" />)
 
     expect(container.querySelector('svg')).toHaveClass('logo-mark', 'logo-mark--lg')
   })

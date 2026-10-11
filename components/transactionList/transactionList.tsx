@@ -2,6 +2,7 @@ import { TransactionType, type Transaction } from '@/lib/types'
 import { formatDate, formatMoney } from '@/lib/format'
 import { StatusBadge } from '../statusBadge'
 import { StatePanel } from '../statePanel'
+import './transactionList.css'
 
 interface TransactionListProps {
   /** Transactions after filters and sorting are applied. */
@@ -105,7 +106,7 @@ const TransactionRow = ({
     <button
       type="button"
       onClick={() => onSelect(transaction)}
-      aria-label={`${merchant}, ${formatMoney(signedMinor, currency, { signed: true })}, ${status}`}
+      aria-label={`${merchant}, ${formatMoney(signedMinor, currency, { showSign: true })}, ${status}`}
       className="transaction-row"
     >
       <span className="transaction-row__main">
@@ -124,10 +125,10 @@ const TransactionRow = ({
       </span>
 
       <span className="transaction-row__amount">
-        <span className={amountClass}>{formatMoney(signedMinor, currency, { signed: true })}</span>
+        <span className={amountClass}>{formatMoney(signedMinor, currency, { showSign: true })}</span>
         {showAccountEquivalent && (
           <span className="transaction-row__equivalent">
-            ≈ {formatMoney(signedAccountMinor, accountCurrency, { signed: true })}
+            ≈ {formatMoney(signedAccountMinor, accountCurrency, { showSign: true })}
           </span>
         )}
       </span>

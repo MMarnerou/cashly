@@ -1,6 +1,7 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useAccount } from '@/hooks/useAccount'
 import type { Transaction } from '@/lib/types'
 import {
@@ -11,15 +12,15 @@ import {
   type TransactionFilters as Filters,
 } from '@/lib/transactions'
 import { AccountSummary } from '../accountSummary'
-import { BrokenPiggyBank } from '../brokenPiggyBank'
 import { DashboardSkeleton } from '../dashboardSkeleton'
-import { StatePanel } from '../statePanel'
 import { TransactionDetailsSidebar } from '../transactionDetailsSidebar'
 import { TransactionFilters } from '../transactionFilters'
 import { TransactionList } from '../transactionList'
+import './transactionDashboard.css'
 
 export const TransactionDashboard = () => {
-  const { state, retry } = useAccount()
+  const router = useRouter()
+  const { state } = useAccount()
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS)
   const [selected, setSelected] = useState<Transaction | null>(null)
 
@@ -28,24 +29,20 @@ export const TransactionDashboard = () => {
     return sortTransactions(filterTransactions(state.transactions, filters), filters.sort)
   }, [state, filters])
 
+  const hasFailed = state.status === 'error'
+  useEffect(() => {
+    if (hasFailed) {
+      router.replace('/error')
+    }
+  }, [hasFailed, router])
+
   if (state.status === 'loading') {
     return <DashboardSkeleton />
   }
 
+  // The error page takes over from here, so nothing is rendered while the redirect happens.
   if (state.status === 'error') {
-    return (
-      <StatePanel
-        tone="error"
-        icon={<BrokenPiggyBank />}
-        title="We couldn't load your transactions"
-        description={state.message}
-        action={
-          <button type="button" onClick={retry} className="button button--primary">
-            Try again
-          </button>
-        }
-      />
-    )
+    return null
   }
 
   return (

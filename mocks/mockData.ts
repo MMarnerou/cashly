@@ -6,10 +6,10 @@ export const mockAccount: Account = {
   id: 'acc_000001',
   name: 'Maria Marnerou',
   currency: 'EUR',
-  balance: 428150, // $4,281.50
+  balance: 428150, // €4,281.50
 }
 
-// Amounts are in minor units (cents for USD, whole yen for JPY).
+// Amounts are in minor units (cents for EUR, whole yen for JPY).
 export const mockTransactions: Transaction[] = [
   {
     id: 'txn_001',
@@ -19,7 +19,7 @@ export const mockTransactions: Transaction[] = [
     type: TransactionType.Debit,
     status: 'completed',
     amount: 8745,
-    currency: 'USD',
+    currency: 'EUR',
     accountAmount: 8745,
   },
   {
@@ -31,7 +31,7 @@ export const mockTransactions: Transaction[] = [
     type: TransactionType.Credit,
     status: 'completed',
     amount: 310000,
-    currency: 'USD',
+    currency: 'EUR',
     accountAmount: 310000,
   },
   {
@@ -42,7 +42,7 @@ export const mockTransactions: Transaction[] = [
     type: TransactionType.Debit,
     status: 'completed',
     amount: 5210,
-    currency: 'USD',
+    currency: 'EUR',
     accountAmount: 5210,
   },
   {
@@ -54,7 +54,7 @@ export const mockTransactions: Transaction[] = [
     type: TransactionType.Debit,
     status: 'pending',
     amount: 4699,
-    currency: 'USD',
+    currency: 'EUR',
     accountAmount: 4699,
   },
   {
@@ -65,7 +65,7 @@ export const mockTransactions: Transaction[] = [
     type: TransactionType.Debit,
     status: 'declined',
     amount: 12900,
-    currency: 'USD',
+    currency: 'EUR',
     accountAmount: 12900,
   },
   {
@@ -77,7 +77,7 @@ export const mockTransactions: Transaction[] = [
     status: 'completed',
     amount: 24000,
     currency: 'EUR',
-    accountAmount: 26136,
+    accountAmount: 24000,
   },
   {
     id: 'txn_007',
@@ -109,7 +109,7 @@ export const mockTransactions: Transaction[] = [
     type: TransactionType.Credit,
     status: 'completed',
     amount: 1850,
-    currency: 'USD',
+    currency: 'EUR',
     accountAmount: 1850,
   },
   {
@@ -120,7 +120,7 @@ export const mockTransactions: Transaction[] = [
     type: TransactionType.Credit,
     status: 'completed',
     amount: 50000,
-    currency: 'USD',
+    currency: 'EUR',
     accountAmount: 50000,
   },
   {
@@ -131,7 +131,7 @@ export const mockTransactions: Transaction[] = [
     type: TransactionType.Debit,
     status: 'pending',
     amount: 675,
-    currency: 'USD',
+    currency: 'EUR',
     accountAmount: 675,
   },
   {
@@ -142,7 +142,7 @@ export const mockTransactions: Transaction[] = [
     type: TransactionType.Debit,
     status: 'completed',
     amount: 4500,
-    currency: 'USD',
+    currency: 'EUR',
     accountAmount: 4500,
   },
   {
@@ -153,7 +153,7 @@ export const mockTransactions: Transaction[] = [
     type: TransactionType.Debit,
     status: 'completed',
     amount: 1099,
-    currency: 'USD',
+    currency: 'EUR',
     accountAmount: 1099,
   },
   {
@@ -165,7 +165,7 @@ export const mockTransactions: Transaction[] = [
     status: 'completed',
     amount: 850,
     currency: 'EUR',
-    accountAmount: 926,
+    accountAmount: 850,
   },
   {
     id: 'txn_015',
@@ -176,7 +176,7 @@ export const mockTransactions: Transaction[] = [
     type: TransactionType.Credit,
     status: 'completed',
     amount: 15000,
-    currency: 'USD',
+    currency: 'EUR',
     accountAmount: 15000,
   },
 ]

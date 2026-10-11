@@ -1,21 +1,22 @@
 import type { ReactNode } from 'react'
+import './statePanel.css'
 
 interface StatePanelProps {
   title: string
   description?: string
-  tone?: 'neutral' | 'error'
+  isError?: boolean
   icon?: ReactNode
   action?: ReactNode
 }
 
 // Used for the empty, no-results and error states.
-export const StatePanel = ({ title, description, tone = 'neutral', icon, action }: StatePanelProps) => {
-  const toneClass = tone === 'error' ? ' state-panel--error' : ''
+export const StatePanel = ({ title, description, isError = false, icon, action }: StatePanelProps) => {
+  const errorClass = isError ? ' state-panel--error' : ''
 
   return (
     <div
-      role={tone === 'error' ? 'alert' : undefined}
-      className={`card state-panel${toneClass}`}
+      role={isError ? 'alert' : undefined}
+      className={`card state-panel${errorClass}`}
     >
       {icon}
       <p className="state-panel__title">{title}</p>

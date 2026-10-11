@@ -6,7 +6,7 @@ import type { AccountResponse } from '@/lib/types'
 const SIMULATED_LATENCY_MS = 700
 
 // Returns the account and transactions belonging to the signed-in user.
-// `?scenario=empty` and `?scenario=error` exist so the UI states can be checked by hand.
+// `?scenario=empty` exists so the empty state can be checked by hand.
 export const GET = async (request: Request) => {
   const scenario = new URL(request.url).searchParams.get('scenario')
 
@@ -17,13 +17,6 @@ export const GET = async (request: Request) => {
   }
 
   await new Promise((resolve) => setTimeout(resolve, SIMULATED_LATENCY_MS))
-
-  if (scenario === 'error') {
-    return Response.json(
-      { message: 'We could not load your account. Please try again.' },
-      { status: 500 },
-    )
-  }
 
   const userData = getAccountForEmail(email)
   if (!userData) {

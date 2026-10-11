@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import './alert.css'
 
 interface AlertProps {
   tone?: 'error' | 'success' | 'info'

@@ -1,0 +1,101 @@
+.details-sidebar {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: 100%;
+  max-width: 28rem;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: -0.625rem 0 1.875rem rgba(0, 0, 0, 0.15);
+  transition:
+    transform 300ms ease,
+    display 300ms allow-discrete,
+    overlay 300ms allow-discrete;
+}
+
+/* Only shown when open, so the browser's hidden state for closed dialogs still applies. */
+.details-sidebar[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.details-sidebar::backdrop {
+  background: rgba(24, 24, 27, 0.3);
+}
+
+@starting-style {
+  .details-sidebar[open] {
+    transform: translateX(100%);
+  }
+}
+
+.details-sidebar__panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.details-sidebar__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-12);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.details-sidebar__text {
+  min-width: 0;
+}
+
+.details-sidebar__title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.details-sidebar__date {
+  margin-top: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.details-sidebar__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-10);
+  padding: var(--space-12);
+  overflow-y: auto;
+}
+
+.details-sidebar__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+.details-sidebar__amount {
+  font-size: var(--font-size-3xl);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.details-sidebar__note {
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius-sm);
+  background: var(--color-page);
+  font-size: var(--font-size-sm);
+  color: #52525b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .details-sidebar {
+    transition: none;
+  }
+}

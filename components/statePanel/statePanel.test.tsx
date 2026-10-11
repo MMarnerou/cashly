@@ -11,7 +11,7 @@ describe('StatePanel', () => {
   })
 
   it('announces error panels to screen readers', () => {
-    render(<StatePanel tone="error" title="Something went wrong" />)
+    render(<StatePanel isError title="Something went wrong" />)
 
     expect(screen.getByRole('alert')).toHaveTextContent('Something went wrong')
   })

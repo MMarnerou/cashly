@@ -1,0 +1,42 @@
+.filters {
+  padding: var(--space-8);
+}
+
+.filters__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+}
+
+.filters__actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--space-6);
+}
+
+@media (min-width: 40rem) {
+  .filters__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Compact filters: search and sort take a full row, status and type share one. */
+@media (max-width: 47.99rem) {
+  .filters {
+    padding: var(--space-6);
+  }
+
+  .filters__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+
+  .filters__grid .field:first-child,
+  .filters__grid .field:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .filters__actions {
+    margin-top: var(--space-4);
+  }
+}

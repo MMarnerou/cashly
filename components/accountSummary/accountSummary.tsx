@@ -1,5 +1,6 @@
 import type { Account } from '@/lib/types'
 import { formatMoney } from '@/lib/format'
+import './accountSummary.css'
 
 export const AccountSummary = ({ account }: { account: Account }) => {
   return (

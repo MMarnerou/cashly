@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { Account, AccountResponse, Transaction } from '@/lib/types'
 
 export type AccountState =
@@ -8,11 +8,10 @@ export type AccountState =
 
 /**
  * Loads the account and its transactions from the API.
- * Passes `?scenario=` through from the page URL so the empty and error states can be reached by hand.
+ * Passes `?scenario=empty` through from the page URL so the empty state can be reached by hand.
  */
 export const useAccount = () => {
   const [state, setState] = useState<AccountState>({ status: 'loading' })
-  const [attempt, setAttempt] = useState(0)
 
   useEffect(() => {
     const controller = new AbortController()
@@ -39,19 +38,7 @@ export const useAccount = () => {
       })
 
     return () => controller.abort()
-  }, [attempt])
-
-  // Retrying leaves any test scenario, so the request goes back to the normal data.
-  const retry = useCallback(() => {
-    const url = new URL(window.location.href)
-    if (url.searchParams.has('scenario')) {
-      url.searchParams.delete('scenario')
-      window.history.replaceState(null, '', url.pathname + url.search + url.hash)
-    }
-
-    setState({ status: 'loading' })
-    setAttempt((count) => count + 1)
   }, [])
 
-  return { state, retry }
+  return { state }
 }

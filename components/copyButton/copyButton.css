@@ -1,0 +1,15 @@
+.copy-button {
+  padding: var(--space-1) var(--space-5);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.copy-button:hover {
+  background: var(--color-hover);
+  color: var(--color-text);
+}

@@ -1,14 +1,16 @@
 import Link from 'next/link'
 import { logout } from '@/app/actions/auth'
-import { LogoMark } from '../logo'
+import { Logo } from '../logo'
 import { NavLinks } from '../navLinks'
+import '../navLinks/navLinks.css'
+import './siteHeader.css'
 
 export const SiteHeader = () => {
   return (
     <header className="site-header">
       <div className="site-header__inner">
         <Link href="/" className="brand">
-          <LogoMark />
+          <Logo className="logo" />
           <span className="brand__name">Cashly</span>
         </Link>
 
